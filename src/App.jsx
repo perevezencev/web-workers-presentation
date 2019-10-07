@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { getPredictionsInMainThreed, getPredictionsInWebWorker } from './utils'
 import VideoWithPredictions from './components/VideoWithPredictions';
-import FPSCounter from './components/FPSCounter';
 
 import './styles.css';
 
@@ -36,7 +35,6 @@ const App = () => {
             <VideoWithPredictions predictionMode={PREDICTIONS_RENDER_MODES.classificationInWebWorker} />
           )} />
         </Switch>
-        <FPSCounter />
       </div>
     </Router>
   );
