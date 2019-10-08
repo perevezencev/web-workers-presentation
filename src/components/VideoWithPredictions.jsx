@@ -1,8 +1,8 @@
 import React from 'react';
 
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 const videoRef = React.createRef();
 const canvasRef = React.createRef();
-
 const constraints = {
   audio: false,
   video: {
@@ -52,7 +52,11 @@ const VideoWithPredictions = ({ predictionMode }) => {
         // рисуем предсказания
         drawPredictions(predictions);
         // планируем при следующем рендере перерисовать canvas
-        requestAnimationFrame(renderVideo);
+        if (isSafari) {
+          setTimeout(renderVideo, 0);
+        } else {
+          requestAnimationFrame(renderVideo);
+        }
       }
 
       canvas.width = clientWidth;
@@ -65,7 +69,7 @@ const VideoWithPredictions = ({ predictionMode }) => {
   return (
     <div className="VideoWithPredictions">
       <canvas ref={canvasRef} className="Canvas" />
-      <video ref={videoRef} className="Video" autoPlay />
+      <video ref={videoRef} className="Video" autoPlay playsInline />
     </div>
   );
 }
